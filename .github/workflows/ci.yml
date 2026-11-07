@@ -15,12 +15,55 @@ jobs:
           distribution: temurin
           java-version: "21"
 
+      - name: Compile all solutions and run tests
+        run: scripts/check.sh
+
+  readme:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    # LeetSync pushes two commits per problem a few seconds apart; run one
+    # README update at a time so they don't race each other.
+    concurrency:
+      group: readme-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # On main, work from the latest commit rather than the one that
+          # triggered this run, in case more problems were pushed meanwhile.
+          ref: ${{ github.event_name == 'push' && github.ref_name || '' }}
+          fetch-depth: 0
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Compile all solutions and run tests
-        run: scripts/check.sh
-
+      # Pull requests and other branches: just verify the index.
       - name: README index is up to date
+        if: github.event_name != 'push' || github.ref_name != 'main'
         run: python3 scripts/generate_readme.py --check
+
+      # main: regenerate the index and commit it, so solutions synced straight
+      # from LeetCode don't need a manual README update.
+      - name: Regenerate README index
+        if: github.event_name == 'push' && github.ref_name == 'main'
+        run: |
+          git config user.name "n3h4a"
+          git config user.email "nehakaramchandani2005@gmail.com"
+          for attempt in 1 2 3 4 5; do
+            # Start from the newest main each time, so a push that lands in
+            # between never causes a conflict.
+            git fetch origin main
+            git reset --hard origin/main
+            python3 scripts/generate_readme.py
+            if git diff --quiet -- README.md; then
+              echo "README.md already up to date."
+              exit 0
+            fi
+            git commit -m "Update README index" -- README.md
+            git push origin HEAD:main && exit 0
+            sleep $((attempt * 3))
+          done
+          echo "Could not push the README update." >&2
+          exit 1

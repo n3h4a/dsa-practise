@@ -15,6 +15,11 @@ Title, link and difficulty come from the folder's README.md. The script groups
 problems by pattern and rewrites everything between the PROBLEMS markers in
 the root README.md.
 
+Solutions pushed straight from LeetCode (LeetSync) have no header yet; they are
+listed under "Uncategorized" until a header is added. Folders that only have a
+README.md so far (LeetSync pushes the statement and the code separately) are
+skipped.
+
 Usage:
     python3 scripts/generate_readme.py          # rewrite README.md
     python3 scripts/generate_readme.py --check  # fail if README.md is stale
@@ -30,6 +35,7 @@ README = ROOT / "README.md"
 START, END = "<!-- PROBLEMS:START -->", "<!-- PROBLEMS:END -->"
 
 # First part of a "Pattern" line -> section in the README (in display order).
+UNCATEGORIZED = "Uncategorized"
 CATEGORIES = {
     "Arrays & Simulation": ["Array", "Array Simulation"],
     "Hashing & Counting": ["Hashing", "Counting"],
@@ -48,15 +54,19 @@ CATEGORIES = {
     ],
     "Strings & Sorting": ["Strings"],
     "Math": ["Math"],
+    UNCATEGORIZED: [],
 }
 CATEGORY_OF = {key: cat for cat, keys in CATEGORIES.items() for key in keys}
 DIFFICULTY_ORDER = {"Easy": 0, "Medium": 1, "Hard": 2}
+NO_VALUE = "—"
 BADGE = {"Easy": "🟢 Easy", "Medium": "🟠 Medium", "Hard": "🔴 Hard"}
 
 
-def header_field(source: str, name: str) -> str:
+def header_field(source: str, name: str, default: str | None = None) -> str:
     match = re.search(rf"^\s*\*\s*{name}\s*:\s*(.+)$", source, re.M)
     if not match:
+        if default is not None:
+            return default
         raise ValueError(f"missing '{name}:' in header")
     return match.group(1).strip()
 
@@ -73,10 +83,14 @@ def load_problem(folder: Path) -> dict:
     if not title or not difficulty:
         raise ValueError("could not read title/difficulty from README.md")
 
-    pattern = header_field(source, "Pattern")
-    key = re.split(r" / | \+ | \(", pattern)[0].strip()
-    if key not in CATEGORY_OF:
-        raise ValueError(f"unknown pattern '{key}' - add it to CATEGORIES")
+    pattern = header_field(source, "Pattern", default="")
+    if pattern:
+        key = re.split(r" / | \+ | \(", pattern)[0].strip()
+        if key not in CATEGORY_OF:
+            raise ValueError(f"unknown pattern '{key}' - add it to CATEGORIES")
+        category = CATEGORY_OF[key]
+    else:
+        category, pattern = UNCATEGORIZED, NO_VALUE
 
     return {
         "folder": folder.name,
@@ -85,9 +99,9 @@ def load_problem(folder: Path) -> dict:
         "title": title.group(2),
         "difficulty": difficulty.group(1),
         "pattern": pattern,
-        "category": CATEGORY_OF[key],
-        "time": header_field(source, "Time"),
-        "space": header_field(source, "Space"),
+        "category": category,
+        "time": header_field(source, "Time", default=NO_VALUE),
+        "space": header_field(source, "Space", default=NO_VALUE),
     }
 
 
@@ -105,6 +119,7 @@ CATEGORY_ICON = {
     "Dynamic Programming & Classic Algorithms": "🧠",
     "Strings & Sorting": "🔤",
     "Math": "➗",
+    UNCATEGORIZED: "📥",
 }
 
 
@@ -114,6 +129,7 @@ def render(problems: list) -> str:
         by_category[p["category"]].append(p)
     counts = Counter(p["difficulty"] for p in problems)
     sections = [c for c in CATEGORIES if by_category[c]]
+    patterns = [c for c in sections if c != UNCATEGORIZED]
 
     out = [
         START,
@@ -128,7 +144,7 @@ def render(problems: list) -> str:
         "| 🧩 Total | 🟢 Easy | 🟠 Medium | 🔴 Hard | 🗂️ Patterns |",
         "|:---:|:---:|:---:|:---:|:---:|",
         f"| **{len(problems)}** | **{counts['Easy']}** | **{counts['Medium']}** "
-        f"| **{counts['Hard']}** | **{len(sections)}** |",
+        f"| **{counts['Hard']}** | **{len(patterns)}** |",
         "",
         "</div>",
         "",
@@ -183,6 +199,8 @@ def update_badges(text: str, problems: list) -> str:
 
 def cell(text: str) -> str:
     """Keeps only the complexity itself (drops the trailing explanation)."""
+    if text == NO_VALUE:
+        return text
     text = re.split(r" - | \(|, | for | extra| API| recursion", text)[0].strip()
     return f"`{text}`"
 
@@ -199,6 +217,8 @@ def main() -> int:
             continue
         if not re.match(r"^\d+-", folder.name):
             continue
+        if not any(folder.glob("*.java")):
+            continue  # LeetSync pushed the statement; the code follows next
         try:
             problems.append(load_problem(folder))
         except ValueError as err:
@@ -207,6 +227,12 @@ def main() -> int:
     if errors:
         print("\n".join(errors), file=sys.stderr)
         return 1
+
+    missing = sorted(p["folder"] for p in problems if p["category"] == UNCATEGORIZED)
+    if missing:
+        print(f"{len(missing)} solution(s) have no 'Pattern:' header yet and are listed "
+              f"under {UNCATEGORIZED}:", file=sys.stderr)
+        print("".join(f"  {m}\n" for m in missing), end="", file=sys.stderr)
 
     current = README.read_text(encoding="utf-8")
     if START not in current or END not in current:

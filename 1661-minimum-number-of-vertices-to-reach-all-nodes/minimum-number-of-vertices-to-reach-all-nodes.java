@@ -1,0 +1,10 @@
+class Solution {
+    public List<Integer> findSmallestSetOfVertices(int n, List<List<Integer>> edges) {
+        boolean[] hasIncoming = new boolean[n];
+        for (List<Integer> e : edges) hasIncoming[e.get(1)] = true;
+        List<Integer> res = new ArrayList<>();
+        for (int i = 0; i < n; i++)
+            if (!hasIncoming[i]) res.add(i);  // nodes nobody can reach must be in the set
+        return res;
+    }
+}

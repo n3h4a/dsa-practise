@@ -12,9 +12,9 @@
 ![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Last commit](https://img.shields.io/github/last-commit/n3h4a/dsa-practise?style=for-the-badge&color=blueviolet)
 
-![Problems](https://img.shields.io/badge/problems-186-blue?style=flat-square)
+![Problems](https://img.shields.io/badge/problems-187-blue?style=flat-square)
 ![Easy](https://img.shields.io/badge/Easy-108-brightgreen?style=flat-square)
-![Medium](https://img.shields.io/badge/Medium-65-orange?style=flat-square)
+![Medium](https://img.shields.io/badge/Medium-66-orange?style=flat-square)
 ![Hard](https://img.shields.io/badge/Hard-13-red?style=flat-square)
 
 [About](#about) · [Highlights](#highlights) · [At a Glance](#at-a-glance) · [Problems](#problems) · [Pattern Notes](./PATTERNS.md) · [Testing](#testing)
@@ -77,14 +77,14 @@ Every solution:
 
 | 🧩 Total | 🟢 Easy | 🟠 Medium | 🔴 Hard | 🗂️ Patterns |
 |:---:|:---:|:---:|:---:|:---:|
-| **186** | **108** | **65** | **13** | **13** |
+| **187** | **108** | **66** | **13** | **13** |
 
 </div>
 
 ```mermaid
 pie showData
     title Problems by pattern
-    "Uncategorized" : 96
+    "Uncategorized" : 97
     "Binary Search" : 14
     "Prefix Sum and Difference Array" : 14
     "Hashing and Counting" : 11
@@ -301,7 +301,7 @@ pie showData
 </details>
 
 <details>
-<summary><b>📥 Uncategorized</b> &nbsp;—&nbsp; 96 problems &nbsp;(🟢 50 · 🟠 38 · 🔴 8)</summary>
+<summary><b>📥 Uncategorized</b> &nbsp;—&nbsp; 97 problems &nbsp;(🟢 50 · 🟠 39 · 🔴 8)</summary>
 
 | # | Problem | Difficulty | Technique | Time | Space | Code |
 |:---:|---|---|---|---|---|:---:|
@@ -388,19 +388,20 @@ pie showData
 | 81 | [Reorder List](https://leetcode.com/problems/reorder-list) | 🟠 Medium | — | — | — | [☕ Java](./143-reorder-list/reorder-list.java) |
 | 82 | [Reorder Routes to Make All Paths Lead to the City Zero](https://leetcode.com/problems/reorder-routes-to-make-all-paths-lead-to-the-city-zero) | 🟠 Medium | — | — | — | [☕ Java](./1576-reorder-routes-to-make-all-paths-lead-to-the-city-zero/reorder-routes-to-make-all-paths-lead-to-the-city-zero.java) |
 | 83 | [Reveal Cards In Increasing Order](https://leetcode.com/problems/reveal-cards-in-increasing-order) | 🟠 Medium | — | — | — | [☕ Java](./987-reveal-cards-in-increasing-order/reveal-cards-in-increasing-order.java) |
-| 84 | [Rotate Array](https://leetcode.com/problems/rotate-array) | 🟠 Medium | — | — | — | [☕ Java](./189-rotate-array/rotate-array.java) |
-| 85 | [Rotting Oranges](https://leetcode.com/problems/rotting-oranges) | 🟠 Medium | — | — | — | [☕ Java](./1036-rotting-oranges/rotting-oranges.java) |
-| 86 | [Simplify Path](https://leetcode.com/problems/simplify-path) | 🟠 Medium | — | — | — | [☕ Java](./71-simplify-path/simplify-path.java) |
-| 87 | [Sort Colors](https://leetcode.com/problems/sort-colors) | 🟠 Medium | — | — | — | [☕ Java](./75-sort-colors/sort-colors.java) |
-| 88 | [Swapping Nodes in a Linked List](https://leetcode.com/problems/swapping-nodes-in-a-linked-list) | 🟠 Medium | — | — | — | [☕ Java](./528-swapping-nodes-in-a-linked-list/swapping-nodes-in-a-linked-list.java) |
-| 89 | [Basic Calculator](https://leetcode.com/problems/basic-calculator) | 🔴 Hard | — | — | — | [☕ Java](./224-basic-calculator/basic-calculator.java) |
-| 90 | [Binary Tree Cameras](https://leetcode.com/problems/binary-tree-cameras) | 🔴 Hard | — | — | — | [☕ Java](./1008-binary-tree-cameras/binary-tree-cameras.java) |
-| 91 | [Count of Range Sum](https://leetcode.com/problems/count-of-range-sum) | 🔴 Hard | — | — | — | [☕ Java](./327-count-of-range-sum/count-of-range-sum.java) |
-| 92 | [Find the Kth Smallest Sum of a Matrix With Sorted Rows](https://leetcode.com/problems/find-the-kth-smallest-sum-of-a-matrix-with-sorted-rows) | 🔴 Hard | — | — | — | [☕ Java](./1550-find-the-kth-smallest-sum-of-a-matrix-with-sorted-rows/find-the-kth-smallest-sum-of-a-matrix-with-sorted-rows.java) |
-| 93 | [Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists) | 🔴 Hard | — | — | — | [☕ Java](./23-merge-k-sorted-lists/merge-k-sorted-lists.java) |
-| 94 | [Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree) | 🔴 Hard | — | — | — | [☕ Java](./297-serialize-and-deserialize-binary-tree/serialize-and-deserialize-binary-tree.java) |
-| 95 | [Swim in Rising Water](https://leetcode.com/problems/swim-in-rising-water) | 🔴 Hard | — | — | — | [☕ Java](./794-swim-in-rising-water/swim-in-rising-water.java) |
-| 96 | [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water) | 🔴 Hard | — | — | — | [☕ Java](./42-trapping-rain-water/trapping-rain-water.java) |
+| 84 | [Reverse Integer](https://leetcode.com/problems/reverse-integer) | 🟠 Medium | — | — | — | [☕ Java](./7-reverse-integer/reverse-integer.java) |
+| 85 | [Rotate Array](https://leetcode.com/problems/rotate-array) | 🟠 Medium | — | — | — | [☕ Java](./189-rotate-array/rotate-array.java) |
+| 86 | [Rotting Oranges](https://leetcode.com/problems/rotting-oranges) | 🟠 Medium | — | — | — | [☕ Java](./1036-rotting-oranges/rotting-oranges.java) |
+| 87 | [Simplify Path](https://leetcode.com/problems/simplify-path) | 🟠 Medium | — | — | — | [☕ Java](./71-simplify-path/simplify-path.java) |
+| 88 | [Sort Colors](https://leetcode.com/problems/sort-colors) | 🟠 Medium | — | — | — | [☕ Java](./75-sort-colors/sort-colors.java) |
+| 89 | [Swapping Nodes in a Linked List](https://leetcode.com/problems/swapping-nodes-in-a-linked-list) | 🟠 Medium | — | — | — | [☕ Java](./528-swapping-nodes-in-a-linked-list/swapping-nodes-in-a-linked-list.java) |
+| 90 | [Basic Calculator](https://leetcode.com/problems/basic-calculator) | 🔴 Hard | — | — | — | [☕ Java](./224-basic-calculator/basic-calculator.java) |
+| 91 | [Binary Tree Cameras](https://leetcode.com/problems/binary-tree-cameras) | 🔴 Hard | — | — | — | [☕ Java](./1008-binary-tree-cameras/binary-tree-cameras.java) |
+| 92 | [Count of Range Sum](https://leetcode.com/problems/count-of-range-sum) | 🔴 Hard | — | — | — | [☕ Java](./327-count-of-range-sum/count-of-range-sum.java) |
+| 93 | [Find the Kth Smallest Sum of a Matrix With Sorted Rows](https://leetcode.com/problems/find-the-kth-smallest-sum-of-a-matrix-with-sorted-rows) | 🔴 Hard | — | — | — | [☕ Java](./1550-find-the-kth-smallest-sum-of-a-matrix-with-sorted-rows/find-the-kth-smallest-sum-of-a-matrix-with-sorted-rows.java) |
+| 94 | [Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists) | 🔴 Hard | — | — | — | [☕ Java](./23-merge-k-sorted-lists/merge-k-sorted-lists.java) |
+| 95 | [Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree) | 🔴 Hard | — | — | — | [☕ Java](./297-serialize-and-deserialize-binary-tree/serialize-and-deserialize-binary-tree.java) |
+| 96 | [Swim in Rising Water](https://leetcode.com/problems/swim-in-rising-water) | 🔴 Hard | — | — | — | [☕ Java](./794-swim-in-rising-water/swim-in-rising-water.java) |
+| 97 | [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water) | 🔴 Hard | — | — | — | [☕ Java](./42-trapping-rain-water/trapping-rain-water.java) |
 
 </details>
 

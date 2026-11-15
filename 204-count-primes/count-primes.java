@@ -7,12 +7,10 @@ class Solution {
 
         boolean[] isPrime = new boolean[n];
 
-        // Assume every number >= 2 is prime
         for (int i = 2; i < n; i++) {
             isPrime[i] = true;
         }
 
-        // Mark multiples as non-prime
         for (int i = 2; i * i < n; i++) {
 
             if (isPrime[i]) {
